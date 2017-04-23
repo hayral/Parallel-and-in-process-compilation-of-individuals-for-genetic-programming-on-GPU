@@ -9,8 +9,8 @@ namespace grammar
     {
 
         public List<Individual> population = new List<Individual>();
-        public double totalFitness = 0;
-        public double avgFitness = 0;
+
+
 
         public int populationSize = 0;
         public static int genomeSize = 0;
@@ -194,10 +194,7 @@ namespace grammar
             
         }
 
-        public double[] fitnessArray()
-        {
-            return population.Select<Individual, double>(x => x.fitness).ToArray();
-        }
+
 
     }
 }

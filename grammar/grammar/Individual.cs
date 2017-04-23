@@ -18,7 +18,6 @@ namespace grammar
         public bool wrapAround = false;
 
         public string code;
-        public string oldcode;
 
         public static byte[] tempByteArray = new byte[GP.genomeSize * sizeof(int)];
 
@@ -43,7 +42,6 @@ namespace grammar
         public void compileGenotypeToCode(Grammar grammar)
         {
             pos = -1;  // reset position
-            oldcode = code;
             code = grammar.compileGenotypeToCode(this);
             genomeUsed = pos;
         }

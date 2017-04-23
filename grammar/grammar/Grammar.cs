@@ -33,7 +33,6 @@ namespace grammar
         public Dictionary<string, string> defines = new Dictionary<string,string>();
         
 
-        public string tokenToCache = "assignement";
 
         public Grammar()
         {
@@ -71,9 +70,6 @@ namespace grammar
 
         
 
-        
-        /// ------------------------------------------------  RECURSIVE EXPANSION  ----------------------------------------------------------------------
-        
         public TokenSequence expandRecursive(Token t, Individual i){
             TokenSequence codeFragment = new TokenSequence( t.expansionRules[i.readValueFromGenotype(t.expansionRules.Count)]); // shallow copy
             for(int x=0;x<codeFragment.Count;x++)
@@ -89,47 +85,6 @@ namespace grammar
             string s = String.Join("", expandRecursive(startToken, i));
             return s;
         }
-
-        /// ----------------------------------------------------------------------------------------------------------------------
-
-        public List<String> generateAllExpansions(Object token)
-        {
-            var result = new List<String>();
-            if (token is Token) {
-                foreach (TokenSequence expansionRule in ((Token)token).expansionRules)
-                {
-                    if (expansionRule.Count == 1)
-                    {
-                        if (expansionRule[0] is Token) 
-                            result.AddRange(generateAllExpansions((Token)expansionRule[0]));
-                        else 
-                            result.Add(expansionRule[0].ToString());
-                    }
-                    else
-                    {
-                        var partialCartesianProduct = generateAllExpansions(expansionRule[0]);
-                        for (int i = 1; i < expansionRule.Count; i++)
-                        {
-                            var expansionsB = generateAllExpansions(expansionRule[i]);
-                            var newPartialCartesianProduct = new List<String>();
-                            foreach (var A in partialCartesianProduct)
-                            {
-                                foreach (var B in expansionsB)
-                                {
-                                    newPartialCartesianProduct.Add(A + B);
-                                }
-                            }
-                            partialCartesianProduct = newPartialCartesianProduct;
-                        }
-                        result.AddRange(partialCartesianProduct);
-                    }
-                }
-            } else 
-                result.Add(token.ToString());
-            return result;
-        }
-        
-        /// ----------------------------------------------------------------------------------------------------------------------
 
 
         public void parseBNF(string bnf)
