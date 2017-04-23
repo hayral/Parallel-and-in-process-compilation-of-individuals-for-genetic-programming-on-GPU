@@ -28,7 +28,7 @@ namespace grammar
 
             for (int x = 0; x < populationSize; x++)
             {
-                population.Add(new Individual()); // as parameter: genome size? genome?
+                population.Add(new Individual()); 
             }
         }
 

@@ -77,23 +77,7 @@ namespace managedcuda_try
             return rendered;
         }
 
-        public byte[] compileOld()
-        {
-            
-            var compiler = new ManagedCuda.NVRTC.CudaRuntimeCompiler(rendered, null);
 
-            try
-            {
-                compiler.Compile(new string[] { "-arch=compute_50" ,"-w"});
-            }
-            catch
-            {
-                System.Diagnostics.Debug.WriteLine(compiler.GetLogAsString());
-            }
-
-            ptx = compiler.GetPTX();
-            return ptx;
-        }
 
         public string postProcess(string s)
         {

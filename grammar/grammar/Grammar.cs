@@ -71,34 +71,6 @@ namespace grammar
 
         
 
-        // backwards scanning in loop here provides Breadth First Traversal with FIFO ordered expansions
-        // this is a form of recursion removal
-        public string compileGenotypeToCodeV1(Individual i)  //  !!  expansion may go to infinity
-        {
-            var program = new LinkedList<Object>();
-            program.AddFirst(startToken);
-            while (program.Any(o => (o is Token))) {  
-                var node = program.Last;  //  start from last
-                while(node != null){
-                    if (node.Value is Token)
-                    {
-                        Token t = (Token)node.Value;
-                        var chosenRule = t.expansionRules[i.readValueFromGenotype(t.expansionRules.Count)];
-                        for(int x=chosenRule.Count-1;x>=0;x--){
-                            program.AddAfter(node, chosenRule[x]);
-                        }
-                        var prevnode = node.Previous;
-                        program.Remove(node);
-                        node = prevnode;  //  keep scanning backwards
-                    }
-                    else { 
-                        node = node.Previous;  //  scan backwards
-                    }
-                }
-            }
-
-            return String.Join("", program);
-        }
         
         /// ------------------------------------------------  RECURSIVE EXPANSION  ----------------------------------------------------------------------
         
